@@ -5,6 +5,7 @@ from matplotlib.backends.backend_tkagg import (
 # Implement the default Matplotlib key bindings.
 from matplotlib.backend_bases import key_press_handler
 from matplotlib.figure import Figure
+import math
 
 import numpy as np
 
@@ -13,11 +14,14 @@ root = tkinter.Tk()
 root.wm_title("Embedding in Tk")
 
 fig = Figure(figsize=(5, 4), dpi=100)
-t = np.arange(0, 3, .01)
+# t = np.arange(0, 3, .01)
+t = [4,5,6,3,5,6,7]
 ax = fig.add_subplot()
-line, = ax.plot(t, 2 * np.sin(2 * np.pi * t))
+y = [1,2,3,4,3,2,4]
+line, = ax.plot(t, y)
 ax.set_xlabel("time [s]")
 ax.set_ylabel("f(t)")
+
 
 canvas = FigureCanvasTkAgg(fig, master=root)  # A tk.DrawingArea.
 canvas.draw()
@@ -38,7 +42,10 @@ def update_frequency(new_val):
     f = float(new_val)
 
     # update data
-    y = 2 * np.sin(2 * np.pi * f * t)
+    # y = 2 * np.sin(2 * np.pi * f * t)
+    t.append(f+2)
+    y.append(f)
+    
     line.set_data(t, y)
 
     # required to update canvas and attached toolbar!
