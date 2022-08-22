@@ -14,9 +14,11 @@ root = tkinter.Tk()
 root.wm_title("Embedding in Tk")
 
 fig = Figure(figsize=(5, 4), dpi=100)
-# t = np.arange(0, 3, .01)
+
 t = [4,5,6,3,5,6,7]
 ax = fig.add_subplot()
+ax.xlim(0,30)
+ax.ylim(0,50)
 y = [1,2,3,4,3,2,4]
 line, = ax.plot(t, y)
 ax.set_xlabel("time [s]")
