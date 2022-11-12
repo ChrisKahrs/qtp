@@ -3,21 +3,22 @@ import math
 # Single Tank, everything in meters and seconds 
 
 class Tank():
-    def __init__(self) -> None:
-       
-        self.vFlowRate = 15.0 # m3/s
-        self.gamma = 0.0 # % flow rate going to tank
-        self.tankHeight = 5 # m
-        self.tankRadius = 10 # m
-        self.pi = 3.14159 
-        self.tankArea = self.pi * (self.tankRadius**2) # area = pi * r**2
+    def __init__(self, gamma, vFlowrate):
+        
+        self.vFlowRate = vFlowrate # m3/s
+        self.gamma = gamma # % flow rate going to tank
         self.td = 0.1 # time differential per control loop
         self.T = math.floor(60 / self.td) # sec (1 min)
+        self.pi = 3.14159 
+        self.g = 9.81 # m/s2
+        
+        self.tankHeight = 5 # m
+        self.tankRadius = 10 # m
+        self.tankArea = self.pi * (self.tankRadius**2) # area = pi * r**2
         self.vTank = self.tankArea * self.tankHeight # volume of tank (m3)
         self.vLiq = 0 # volume of liquid in tank (m3)
         self.drainRadius = .5 # m
         self.drainArea = self.pi * (self.drainRadius**2) # area = pi * r**2
-        self.g = 9.81 # m/s2
         self.hLiq = 0 # m 
         self.overflowed = False
         self.emptied = False
@@ -42,33 +43,7 @@ class Tank():
         elif self.vLiq == 0:
            self.emptied = True
 
-blt = Tank()
-blt.gamma = 0.7
-brt = Tank()
-brt.gamma = 0.7
-tlt = Tank()
-tlt.gamma = 0.3
-trt = Tank()
-trt.gamma = 0.3
-           
-for i in range(brt.T):
-    tlt.vIn = 0
-    tlt.step()
-    blt.vIn = tlt.vDrain
-    blt.step()
-    
-    trt.vIn = 0
-    trt.step()
-    brt.vIn = trt.vDrain
-    brt.step()
-    
-        
-    if i % 10 == 1:
-        print("current time: " + str(i) + " and blt height: " + str(blt.hLiq))
-        print("current time: " + str(i) + " and brt height: " + str(brt.hLiq))
-        print("current time: " + str(i) + " and tlt height: " + str(tlt.hLiq))
-        print("current time: " + str(i) + " and trt height: " + str(trt.hLiq))
-        print("____________________________________________")
+
         
 
     # if tank.overflowed:
