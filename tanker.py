@@ -1,4 +1,4 @@
-from pythonfmu import Fmi2Causality, Fmi2Variability, Fmi2Slave, Real
+from pythonfmu import Fmi2Causality, Fmi2Variability, Fmi2Slave, Real, Boolean, Integer
 import math
 import random
 
@@ -11,6 +11,9 @@ class Tank():
         self.T = math.floor(60 / self.td) # sec (1 min)
         self.pi = 3.14159 
         self.g = 9.81 # m/s2
+        
+        self.hSetPoint = 0
+        self.hLiq = 0
         
         self.tankHeight = 5 # m
         self.tankRadius = 10 # m
